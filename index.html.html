@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Osman Hadi | Sci-Fi Designer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #00f3ff;
+            --secondary: #39ff14;
+            --dark: #0a0a0f;
+            --dark-glass: rgba(10, 10, 15, 0.7);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none;
+        }
+        
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--dark);
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        h1, h2, h3, h4, .tech-font {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+        }
+        
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.2s;
+        }
+        
+        .cursor-dot {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+        }
+        
+        /* Glass Morphism */
+        .glass {
+            background: rgba(16, 18, 27, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .glass-dark {
+            background: rgba(5, 7, 15, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 243, 255, 0.1);
+        }
+        
+        /* Neon Glow */
+        .neon-primary {
+            text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
+        }
+        
+        .neon-secondary {
+            text-shadow: 0 0 10px var(--secondary), 0 0 20px var(--secondary);
+        }
+        
+        .glow-primary {
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.7);
+        }
+        
+        .glow-secondary {
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.7);
+        }
+        
+        /* Grid Background */
+        .grid-bg {
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            background-position: center center;
+        }
+        
+        /* Scanning Line Effect */
+        .scan-line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--primary), transparent);
+            z-index: 999;
+            animation: scan 3s linear infinite;
+        }
+        
+        @keyframes scan {
+            0% { top: 0%; }
+            100% { top: 100%; }
+        }
+        
+        /* HUD Elements */
+        .hud-corner {
+            position: relative;
+        }
+        
+        .hud-corner::before, .hud-corner::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary);
+        }
+        
+        .hud-corner::before {
+            top: -5px;
+            left: -5px;
+            border-right: none;
+            border-bottom: none;
+        }
+        
+        .hud-corner::after {
+            bottom: -5px;
+            right: -5px;
+            border-left: none;
+            border-top: none;
+        }
+        
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+        }
+        
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff00ff;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+        
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #00ffff;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+        
+        @keyframes glitch-anim {
+            0% { clip: rect(42px, 9999px, 44px, 0); }
+            5% { clip: rect(12px, 9999px, 59px, 0); }
+            10% { clip: rect(48px, 9999px, 29px, 0); }
+            15% { clip: rect(42px, 9999px, 73px, 0); }
+            20% { clip: rect(63px, 9999px, 27px, 0); }
+            25% { clip: rect(34px, 9999px, 55px, 0); }
+            30% { clip: rect(86px, 9999px, 73px, 0); }
+            35% { clip: rect(20px, 9999px, 20px, 0); }
+            40% { clip: rect(26px, 9999px, 60px, 0); }
+            45% { clip: rect(25px, 9999px, 66px, 0); }
+            50% { clip: rect(57px, 9999px, 98px, 0); }
+            55% { clip: rect(5px, 9999px, 46px, 0); }
+            60% { clip: rect(82px, 9999px, 31px, 0); }
+            65% { clip: rect(54px, 9999px, 27px, 0); }
+            70% { clip: rect(28px, 9999px, 99px, 0); }
+            75% { clip: rect(45px, 9999px, 69px, 0); }
+            80% { clip: rect(23px, 9999px, 85px, 0); }
+            85% { clip: rect(54px, 9999px, 84px, 0); }
+            90% { clip: rect(45px, 9999px, 47px, 0); }
+            95% { clip: rect(37px, 9999px, 20px, 0); }
+            100% { clip: rect(4px, 9999px, 91px, 0); }
+        }
+        
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 9999px, 100px, 0); }
+            5% { clip: rect(52px, 9999px, 74px, 0); }
+            10% { clip: rect(79px, 9999px, 85px, 0); }
+            15% { clip: rect(75px, 9999px, 5px, 0); }
+            20% { clip: rect(67px, 9999px, 61px, 0); }
+            25% { clip: rect(14px, 9999px, 79px, 0); }
+            30% { clip: rect(1px, 9999px, 66px, 0); }
+            35% { clip: rect(86px, 9999px, 30px, 0); }
+            40% { clip: rect(23px, 9999px, 98px, 0); }
+            45% { clip: rect(85px, 9999px, 72px, 0); }
+            50% { clip: rect(71px, 9999px, 75px, 0); }
+            55% { clip: rect(2px, 9999px, 48px, 0); }
+            60% { clip: rect(30px, 9999px, 16px, 0); }
+            65% { clip: rect(59px, 9999px, 50px, 0); }
+            70% { clip: rect(41px, 9999px, 62px, 0); }
+            75% { clip: rect(2px, 9999px, 82px, 0); }
+            80% { clip: rect(47px, 9999px, 73px, 0); }
+            85% { clip: rect(3px, 9999px, 27px, 0); }
+            90% { clip: rect(40px, 9999px, 86px, 0); }
+            95% { clip: rect(45px, 9999px, 72px, 0); }
+            100% { clip: rect(23px, 9999px, 49px, 0); }
+        }
+        
+        /* Progress Bars */
+        .skill-progress {
+            height: 10px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .skill-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            animation: load-skill 2s ease-out forwards;
+        }
+        
+        @keyframes load-skill {
+            to {
+                width: var(--progress-width);
+            }
+        }
+        
+        /* Card Hover Effect */
+        .project-card {
+            transition: all 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 243, 255, 0.4);
+        }
+        
+        /* X-ray effect on hover */
+        .x-ray-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .x-ray-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.2), transparent);
+            transition: left 0.7s;
+            z-index: 1;
+        }
+        
+        .x-ray-effect:hover::before {
+            left: 100%;
+        }
+        
+        /* Button Effects */
+        .hud-button {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hud-button:hover {
+            background-color: rgba(0, 243, 255, 0.2);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.7);
+        }
+        
+        .hud-button:active {
+            transform: scale(0.95);
+        }
+        
+        .hud-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+        
+        .hud-button:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+        
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(20, 20);
+                opacity: 0;
+            }
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .cursor, .cursor-dot {
+                display: none;
+            }
+            
+            * {
+                cursor: auto;
+            }
+        }
+        
+        /* Blinking cursor for typing effect */
+        .blinking-cursor {
+            animation: blink 1s infinite;
+            color: var(--primary);
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body class="relative overflow-x-hidden">
+    <!-- Scanning Line -->
+    <div class="scan-line"></div>
+    
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+    
+    <!-- Grid Background -->
+    <div class="grid-bg fixed inset-0 z-0 opacity-30"></div>
+    
+    <!-- Main Container -->
+    <div class="relative z-10">
+        
+        <!-- Navigation -->
+        <nav class="glass fixed top-0 left-0 right-0 z-50 p-4">
+            <div class="container mx-auto flex justify-between items-center">
+                <div class="tech-font text-2xl neon-primary">
+                    <span class="text-cyan-400">[</span> OSMAN HADI <span class="text-cyan-400">]</span>
+                </div>
+                
+                <div class="hidden md:flex space-x-6">
+                    <a href="#home" class="hud-button glass px-4 py-2 rounded-md hover:glow-primary">HOME</a>
+                    <a href="#bio" class="hud-button glass px-4 py-2 rounded-md hover:glow-primary">BIO</a>
+                    <a href="#skills" class="hud-button glass px-4 py-2 rounded-md hover:glow-primary">SKILLS</a>
+                    <a href="#projects" class="hud-button glass px-4 py-2 rounded-md hover:glow-primary">PROJECTS</a>
+                    <a href="#contact" class="hud-button glass px-4 py-2 rounded-md hover:glow-primary">CONTACT</a>
+                </div>
+                
+                <button id="mobileMenuBtn" class="md:hidden hud-button glass w-10 h-10 flex items-center justify-center rounded">
+                    <i class="fas fa-bars text-cyan-400"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="md:hidden glass-dark mt-4 p-4 rounded-md hidden">
+                <div class="flex flex-col space-y-4">
+                    <a href="#home" class="hud-button px-4 py-2 rounded-md">HOME</a>
+                    <a href="#bio" class="hud-button px-4 py-2 rounded-md">BIO</a>
+                    <a href="#skills" class="hud-button px-4 py-2 rounded-md">SKILLS</a>
+                    <a href="#projects" class="hud-button px-4 py-2 rounded-md">PROJECTS</a>
+                    <a href="#contact" class="hud-button px-4 py-2 rounded-md">CONTACT</a>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Hero Section -->
+        <section id="home" class="min-h-screen flex items-center justify-center relative px-4 pt-20">
+            <div class="container mx-auto text-center">
+                <div class="glass-dark p-8 md:p-12 rounded-xl max-w-4xl mx-auto hud-corner">
+                    <div class="mb-6">
+                        <div class="text-cyan-400 tech-font text-lg md:text-xl mb-2">WELCOME TO DESIGN LAB</div>
+                        <h1 class="text-4xl md:text-7xl font-bold mb-4 neon-primary glitch" data-text="OSMAN HADI">
+                            OSMAN HADI
+                        </h1>
+                        <div class="text-xl md:text-3xl tech-font text-green-400 mb-6">
+                            <span id="typing-text"></span><span class="blinking-cursor">|</span>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                        <div class="glass p-4 rounded-lg text-center">
+                            <i class="fas fa-palette text-cyan-400 text-2xl mb-2"></i>
+                            <div class="tech-font">Photo Editing</div>
+                        </div>
+                        <div class="glass p-4 rounded-lg text-center">
+                            <i class="fab fa-adobe text-cyan-400 text-2xl mb-2"></i>
+                            <div class="tech-font">Photoshop</div>
+                        </div>
+                        <div class="glass p-4 rounded-lg text-center">
+                            <i class="fas fa-pen-nib text-cyan-400 text-2xl mb-2"></i>
+                            <div class="tech-font">Illustrator</div>
+                        </div>
+                        <div class="glass p-4 rounded-lg text-center">
+                            <i class="fas fa-film text-cyan-400 text-2xl mb-2"></i>
+                            <div class="tech-font">2D/3D Animation</div>
+                        </div>
+                    </div>
+                    
+                    <p class="text-gray-300 mb-8 max-w-2xl mx-auto">
+                        Specializing in high-end visual design for the future. Creating immersive experiences through cutting-edge graphics and animation.
+                    </p>
+                    
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <a href="#projects" class="hud-button glass px-6 py-3 rounded-md text-lg glow-primary">
+                            <i class="fas fa-eye mr-2"></i> VIEW PROJECTS
+                        </a>
+                        <a href="#contact" class="hud-button glass px-6 py-3 rounded-md text-lg border border-cyan-400">
+                            <i class="fas fa-satellite-dish mr-2"></i> TRANSMISSION
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Animated HUD Elements -->
+            <div class="absolute top-10 left-10 w-4 h-4 border-t border-l border-cyan-400"></div>
+            <div class="absolute top-10 right-10 w-4 h-4 border-t border-r border-cyan-400"></div>
+            <div class="absolute bottom-10 left-10 w-4 h-4 border-b border-l border-cyan-400"></div>
+            <div class="absolute bottom-10 right-10 w-4 h-4 border-b border-r border-cyan-400"></div>
+        </section>
+        
+        <!-- Bio Section -->
+        <section id="bio" class="py-20 px-4">
+            <div class="container mx-auto">
+                <h2 class="text-3xl md:text-5xl font-bold text-center mb-4 tech-font neon-primary">PERSONNEL FILE</h2>
+                <div class="text-center text-cyan-400 tech-font mb-12">// BIOMETRIC SCAN //</div>
+                
+                <div class="glass-dark rounded-xl p-6 md:p-10 max-w-6xl mx-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                        <div class="x-ray-effect">
+                            <div class="glass p-2 rounded-lg">
+                                <div class="bg-gray-900 rounded-lg overflow-hidden">
+                                    <div class="h-64 bg-gradient-to-br from-cyan-900 to-green-900 flex items-center justify-center">
+                                        <div class="text-center">
+                                            <div class="text-6xl mb-4"><i class="fas fa-user-astronaut text-cyan-400"></i></div>
+                                            <div class="tech-font text-2xl">OSMAN HADI</div>
+                                            <div class="text-green-400">DESIGN SPECIALIST</div>
+                                        </div>
+                                    </div>
+                                    <div class="p-4 grid grid-cols-2 gap-4">
+                                        <div class="text-center">
+                                            <div class="text-cyan-400 tech-font">CLEARANCE</div>
+                                            <div class="text-xl">LEVEL 9</div>
+                                        </div>
+                                        <div class="text-center">
+                                            <div class="text-cyan-400 tech-font">STATUS</div>
+                                            <div class="text-xl text-green-400">ACTIVE</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-2xl md:text-3xl font-bold mb-6 tech-font text-cyan-400">DESIGN PROTOCOL</h3>
+                            <div class="space-y-6">
+                                <p class="text-gray-300">
+                                    Osman Hadi is a high-end graphics designer specializing in futuristic visual concepts. With over 8 years of experience in digital design, he creates immersive visual experiences that blend aesthetics with cutting-edge technology.
+                                </p>
+                                
+                                <div class="glass p-4 rounded-lg">
+                                    <h4 class="text-xl font-bold mb-3 tech-font text-green-400">DESIGN PHILOSOPHY</h4>
+                                    <p class="text-gray-300">
+                                        "Visual design should not just be seen but experienced. Every project is an opportunity to create something that pushes boundaries and redefines what's possible in digital spaces."
+                                    </p>
+                                </div>
+                                
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="glass p-3 rounded text-center">
+                                        <div class="text-cyan-400 tech-font">EXPERTISE</div>
+                                        <div class="text-lg">8+ Years</div>
+                                    </div>
+                                    <div class="glass p-3 rounded text-center">
+                                        <div class="text-cyan-400 tech-font">PROJECTS</div>
+                                        <div class="text-lg">120+</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Skills Dashboard -->
+        <section id="skills" class="py-20 px-4 bg-black bg-opacity-50">
+            <div class="container mx-auto">
+                <h2 class="text-3xl md:text-5xl font-bold text-center mb-4 tech-font neon-primary">SKILLS DASHBOARD</h2>
+                <div class="text-center text-cyan-400 tech-font mb-12">// ENERGY METERS //</div>
+                
+                <div class="glass-dark rounded-xl p-6 md:p-10 max-w-6xl mx-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                        <!-- Progress Bars -->
+                        <div>
+                            <h3 class="text-2xl font-bold mb-8 tech-font text-cyan-400">TECHNICAL PROFICIENCY</h3>
+                            
+                            <div class="space-y-8">
+                                <div>
+                                    <div class="flex justify-between mb-2">
+                                        <span class="tech-font text-green-400">ADOBE PHOTOSHOP</span>
+                                        <span class="tech-font">98%</span>
+                                    </div>
+                                    <div class="skill-progress" style="--progress-width: 98%"></div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between mb-2">
+                                        <span class="tech-font text-green-400">ADOBE ILLUSTRATOR</span>
+                                        <span class="tech-font">95%</span>
+                                    </div>
+                                    <div class="skill-progress" style="--progress-width: 95%"></div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between mb-2">
+                                        <span class="tech-font text-green-400">PHOTO EDITING</span>
+                                        <span class="tech-font">96%</span>
+                                    </div>
+                                    <div class="skill-progress" style="--progress-width: 96%"></div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between mb-2">
+                                        <span class="tech-font text-green-400">2D ANIMATION</span>
+                                        <span class="tech-font">92%</span>
+                                    </div>
+                                    <div class="skill-progress" style="--progress-width: 92%"></div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between mb-2">
+                                        <span class="tech-font text-green-400">3D ANIMATION</span>
+                                        <span class="tech-font">90%</span>
+                                    </div>
+                                    <div class="skill-progress" style="--progress-width: 90%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Circular Meters -->
+                        <div>
+                            <h3 class="text-2xl font-bold mb-8 tech-font text-cyan-400">SPECIALIZATION METRICS</h3>
+                            
+                            <div class="grid grid-cols-2 gap-6">
+                                <div class="text-center">
+                                    <div class="relative w-40 h-40 mx-auto mb-4">
+                                        <svg class="w-full h-full transform -rotate-90">
+                                            <circle cx="80" cy="80" r="70" stroke="rgba(255,255,255,0.1)" stroke-width="10" fill="transparent"></circle>
+                                            <circle cx="80" cy="80" r="70" stroke="url(#grad1)" stroke-width="10" fill="transparent" stroke-dasharray="440" stroke-dashoffset="44" stroke-linecap="round"></circle>
+                                        </svg>
+                                        <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                            <span class="text-3xl tech-font text-cyan-400">90%</span>
+                                            <span class="text-green-400">Creativity</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="text-center">
+                                    <div class="relative w-40 h-40 mx-auto mb-4">
+                                        <svg class="w-full h-full transform -rotate-90">
+                                            <circle cx="80" cy="80" r="70" stroke="rgba(255,255,255,0.1)" stroke-width="10" fill="transparent"></circle>
+                                            <circle cx="80" cy="80" r="70" stroke="url(#grad2)" stroke-width="10" fill="transparent" stroke-dasharray="440" stroke-dashoffset="66" stroke-linecap="round"></circle>
+                                        </svg>
+                                        <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                            <span class="text-3xl tech-font text-cyan-400">85%</span>
+                                            <span class="text-green-400">Innovation</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="text-center">
+                                    <div class="relative w-40 h-40 mx-auto mb-4">
+                                        <svg class="w-full h-full transform -rotate-90">
+                                            <circle cx="80" cy="80" r="70" stroke="rgba(255,255,255,0.1)" stroke-width="10" fill="transparent"></circle>
+                                            <circle cx="80" cy="80" r="70" stroke="url(#grad3)" stroke-width="10" fill="transparent" stroke-dasharray="440" stroke-dashoffset="22" stroke-linecap="round"></circle>
+                                        </svg>
+                                        <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                            <span class="text-3xl tech-font text-cyan-400">95%</span>
+                                            <span class="text-green-400">Precision</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="text-center">
+                                    <div class="relative w-40 h-40 mx-auto mb-4">
+                                        <svg class="w-full h-full transform -rotate-90">
+                                            <circle cx="80" cy="80" r="70" stroke="rgba(255,255,255,0.1)" stroke-width="10" fill="transparent"></circle>
+                                            <circle cx="80" cy="80" r="70" stroke="url(#grad4)" stroke-width="10" fill="transparent" stroke-dasharray="440" stroke-dashoffset="88" stroke-linecap="round"></circle>
+                                        </svg>
+                                        <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                            <span class="text-3xl tech-font text-cyan-400">80%</span>
+                                            <span class="text-green-400">Efficiency</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- SVG Gradients -->
+                            <svg width="0" height="0">
+                                <defs>
+                                    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#00f3ff" />
+                                        <stop offset="100%" stop-color="#39ff14" />
+                                    </linearGradient>
+                                    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#39ff14" />
+                                        <stop offset="100%" stop-color="#00f3ff" />
+                                    </linearGradient>
+                                    <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#00f3ff" />
+                                        <stop offset="100%" stop-color="#39ff14" />
+                                    </linearGradient>
+                                    <linearGradient id="grad4" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#39ff14" />
+                                        <stop offset="100%" stop-color="#00f3ff" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Project Gallery -->
+        <section id="projects" class="py-20 px-4">
+            <div class="container mx-auto">
+                <h2 class="text-3xl md:text-5xl font-bold text-center mb-4 tech-font neon-primary">PROJECT GALLERY</h2>
+                <div class="text-center text-cyan-400 tech-font mb-12">// CLASSIFIED VISUALS //</div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <!-- Project 1 -->
+                    <div class="project-card glass-dark rounded-xl overflow-hidden x-ray-effect">
+                        <div class="h-48 bg-gradient-to-br from-cyan-900 to-black relative overflow-hidden">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <i class="fas fa-globe-americas text-6xl text-cyan-400 opacity-50"></i>
+                            </div>
+                            <div class="absolute bottom-4 left-4 tech-font bg-black bg-opacity-70 px-3 py-1 rounded">
+                                <span class="text-cyan-400">[</span> NEON CYBER <span class="text-cyan-400">]</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2 tech-font text-green-400">CYBERPUNK IDENTITY</h3>
+                            <p class="text-gray-300 mb-4">Futuristic brand identity with neon aesthetics and holographic elements.</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-cyan-900 bg-opacity-50 rounded text-sm">Photoshop</span>
+                                <span class="px-3 py-1 bg-cyan-900 bg-opacity-50 rounded text-sm">Illustrator</span>
+                                <span class="px-3 py-1 bg-cyan-900 bg-opacity-50 rounded text-sm">3D Animation</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 2 -->
+                    <div class="project-card glass-dark rounded-xl overflow-hidden x-ray-effect">
+                        <div class="h-48 bg-gradient-to-br from-green-900 to-black relative overflow-hidden">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <i class="fas fa-atom text-6xl text-green-400 opacity-50"></i>
+                            </div>
+                            <div class="absolute bottom-4 left-4 tech-font bg-black bg-opacity-70 px-3 py-1 rounded">
+                                <span class="text-cyan-400">[</span> QUANTUM REALM <span class="text-cyan-400">]</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2 tech-font text-green-400">SCI-FI INTERFACE</h3>
+                            <p class="text-gray-300 mb-4">HUD design for a futuristic simulation with interactive elements.</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-green-900 bg-opacity-50 rounded text-sm">UI Design</span>
+                                <span class="px-3 py-1 bg-green-900 bg-opacity-50 rounded text-sm">2D Animation</span>
+                                <span class="px-3 py-1 bg-green-900 bg-opacity-50 rounded text-sm">Illustrator</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 3 -->
+                    <div class="project-card glass-dark rounded-xl overflow-hidden x-ray-effect">
+                        <div class="h-48 bg-gradient-to-br from-cyan-900 to-green-900 relative overflow-hidden">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <i class="fas fa-robot text-6xl text-cyan-400 opacity-50"></i>
+                            </div>
+                            <div class="absolute bottom-4 left-4 tech-font bg-black bg-opacity-70 px-3 py-1 rounded">
+                                <span class="text-cyan-400">[</span> ROBOTIC EVOLUTION <span class="text-cyan-400">]</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2 tech-font text-green-400">AUTOMATA DESIGN</h3>
+                            <p class="text-gray-300 mb-4">Character design and animation for futuristic robotic beings.</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-cyan-900 bg-opacity-50 rounded text-sm">3D Modeling</span>
+                                <span class="px-3 py-1 bg-cyan-900 bg-opacity-50 rounded text-sm">Animation</span>
+                                <span class="px-3 py-1 bg-cyan-900 bg-opacity-50 rounded text-sm">Concept Art</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 4 -->
+                    <div class="project-card glass-dark rounded-xl overflow-hidden x-ray-effect">
+                        <div class="h-48 bg-gradient-to-br from-green-900 to-cyan-900 relative overflow-hidden">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <i class="fas fa-satellite text-6xl text-green-400 opacity-50"></i>
+                            </div>
+                            <div class="absolute bottom-4 left-4 tech-font bg-black bg-opacity-70 px-3 py-1 rounded">
+                                <span class="text-cyan-400">[</span> ORBITAL VISION <span class="text-cyan-400">]</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2 tech-font text-green-400">SPACE STATION UI</h3>
+                            <p class="text-gray-300 mb-4">Control interface design for a futuristic space station operation.</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-green-900 bg-opacity-50 rounded text-sm">UI/UX Design</span>
+                                <span class="px-3 py-1 bg-green-900 bg-opacity-50 rounded text-sm">Motion Graphics</span>
+                                <span class="px-3 py-1 bg-green-900 bg-opacity-50 rounded text-sm">Illustrator</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 5 -->
+                    <div class="project-card glass-dark rounded-xl overflow-hidden x-ray-effect">
+                        <div class="h-48 bg-gradient-to-br from-cyan-900 to-black relative overflow-hidden">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <i class="fas fa-city text-6xl text-cyan-400 opacity-50"></i>
+                            </div>
+                            <div class="absolute bottom-4 left-4 tech-font bg-black bg-opacity-70 px-3 py-1 rounded">
+                                <span class="text-cyan-400">[</span> NEOTOKYO <span class="text-cyan-400">]</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2 tech-font text-green-400">FUTURE CITYSCAPE</h3>
+                            <p class="text-gray-300 mb-4">Architectural visualization of a cyberpunk metropolis environment.</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-cyan-900 bg-opacity-50 rounded text-sm">3D Rendering</span>
+                                <span class="px-3 py-1 bg-cyan-900 bg-opacity-50 rounded text-sm">Photoshop</span>
+                                <span class="px-3 py-1 bg-cyan-900 bg-opacity-50 rounded text-sm">Lighting</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 6 -->
+                    <div class="project-card glass-dark rounded-xl overflow-hidden x-ray-effect">
+                        <div class="h-48 bg-gradient-to-br from-green-900 to-black relative overflow-hidden">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <i class="fas fa-vr-cardboard text-6xl text-green-400 opacity-50"></i>
+                            </div>
+                            <div class="absolute bottom-4 left-4 tech-font bg-black bg-opacity-70 px-3 py-1 rounded">
+                                <span class="text-cyan-400">[</span> VIRTUAL REALMS <span class="text-cyan-400">]</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2 tech-font text-green-400">VR ENVIRONMENT</h3>
+                            <p class="text-gray-300 mb-4">Immersive virtual reality environment with interactive elements.</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-green-900 bg-opacity-50 rounded text-sm">VR Design</span>
+                                <span class="px-3 py-1 bg-green-900 bg-opacity-50 rounded text-sm">3D Animation</span>
+                                <span class="px-3 py-1 bg-green-900 bg-opacity-50 rounded text-sm">Interaction</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 px-4 bg-black bg-opacity-50">
+            <div class="container mx-auto">
+                <h2 class="text-3xl md:text-5xl font-bold text-center mb-4 tech-font neon-primary">TRANSMISSION HUB</h2>
+                <div class="text-center text-cyan-400 tech-font mb-12">// INITIATE COMMUNICATION //</div>
+                
+                <div class="glass-dark rounded-xl p-6 md:p-10 max-w-4xl mx-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                        <!-- Contact Info -->
+                        <div>
+                            <h3 class="text-2xl font-bold mb-6 tech-font text-cyan-400">COMMUNICATION CHANNELS</h3>
+                            
+                            <div class="space-y-6">
+                                <div class="glass p-4 rounded-lg">
+                                    <div class="flex items-center">
+                                        <div class="w-12 h-12 bg-cyan-900 bg-opacity-50 rounded-full flex items-center justify-center mr-4">
+                                            <i class="fas fa-envelope text-cyan-400 text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <div class="tech-font text-green-400">ENCRYPTED MAIL</div>
+                                            <div class="text-gray-300">contact@osmanhadi.design</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="glass p-4 rounded-lg">
+                                    <div class="flex items-center">
+                                        <div class="w-12 h-12 bg-cyan-900 bg-opacity-50 rounded-full flex items-center justify-center mr-4">
+                                            <i class="fas fa-satellite text-cyan-400 text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <div class="tech-font text-green-400">TRANSMISSION FREQUENCY</div>
+                                            <div class="text-gray-300">+1 (555) 123-4567</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="glass p-4 rounded-lg">
+                                    <div class="flex items-center">
+                                        <div class="w-12 h-12 bg-cyan-900 bg-opacity-50 rounded-full flex items-center justify-center mr-4">
+                                            <i class="fas fa-map-marker-alt text-cyan-400 text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <div class="tech-font text-green-400">COORDINATES</div>
+                                            <div class="text-gray-300">Digital Design Lab • Virtual Location</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-8">
+                                <h4 class="text-xl font-bold mb-4 tech-font text-green-400">CONNECT ON NETWORK</h4>
+                                <div class="flex space-x-4">
+                                    <a href="#" class="hud-button glass w-12 h-12 rounded-full flex items-center justify-center">
+                                        <i class="fab fa-linkedin-in text-cyan-400 text-xl"></i>
+                                    </a>
+                                    <a href="#" class="hud-button glass w-12 h-12 rounded-full flex items-center justify-center">
+                                        <i class="fab fa-dribbble text-cyan-400 text-xl"></i>
+                                    </a>
+                                    <a href="#" class="hud-button glass w-12 h-12 rounded-full flex items-center justify-center">
+                                        <i class="fab fa-behance text-cyan-400 text-xl"></i>
+                                    </a>
+                                    <a href="#" class="hud-button glass w-12 h-12 rounded-full flex items-center justify-center">
+                                        <i class="fab fa-instagram text-cyan-400 text-xl"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Contact Form -->
+                        <div>
+                            <h3 class="text-2xl font-bold mb-6 tech-font text-cyan-400">SEND TRANSMISSION</h3>
+                            
+                            <form id="contactForm" class="space-y-4">
+                                <div>
+                                    <label class="block text-green-400 tech-font mb-2">YOUR DESIGNATION</label>
+                                    <input type="text" class="w-full glass p-3 rounded-md bg-transparent border border-cyan-900 focus:outline-none focus:glow-primary" placeholder="Enter your name">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-green-400 tech-font mb-2">ENCRYPTED FREQUENCY</label>
+                                    <input type="email" class="w-full glass p-3 rounded-md bg-transparent border border-cyan-900 focus:outline-none focus:glow-primary" placeholder="Enter your email">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-green-400 tech-font mb-2">MISSION PROTOCOL</label>
+                                    <select class="w-full glass p-3 rounded-md bg-transparent border border-cyan-900 focus:outline-none focus:glow-primary">
+                                        <option value="" disabled selected>Select project type</option>
+                                        <option value="branding">Brand Identity</option>
+                                        <option value="animation">2D/3D Animation</option>
+                                        <option value="ui">UI/UX Design</option>
+                                        <option value="photo">Photo Editing</option>
+                                        <option value="other">Other Mission</option>
+                                    </select>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-green-400 tech-font mb-2">TRANSMISSION MESSAGE</label>
+                                    <textarea rows="4" class="w-full glass p-3 rounded-md bg-transparent border border-cyan-900 focus:outline-none focus:glow-primary" placeholder="Enter your message"></textarea>
+                                </div>
+                                
+                                <button type="submit" class="hud-button glass w-full p-3 rounded-md text-lg glow-primary tech-font">
+                                    <i class="fas fa-paper-plane mr-2"></i> INITIATE TRANSMISSION
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="py-10 px-4 border-t border-cyan-900">
+            <div class="container mx-auto">
+                <div class="text-center">
+                    <div class="tech-font text-2xl neon-primary mb-4">
+                        <span class="text-cyan-400">[</span> OSMAN HADI <span class="text-cyan-400">]</span>
+                    </div>
+                    <p class="text-gray-400 mb-6">High-End Graphics Designer • Futuristic Visual Concepts • Immersive Experiences</p>
+                    <div class="flex justify-center space-x-6">
+                        <a href="#home" class="text-cyan-400 hover:text-green-400">HOME</a>
+                        <a href="#bio" class="text-cyan-400 hover:text-green-400">BIO</a>
+                        <a href="#skills" class="text-cyan-400 hover:text-green-400">SKILLS</a>
+                        <a href="#projects" class="text-cyan-400 hover:text-green-400">PROJECTS</a>
+                        <a href="#contact" class="text-cyan-400 hover:text-green-400">CONTACT</a>
+                    </div>
+                    <div class="mt-6 text-gray-500 tech-font text-sm">
+                        &copy; 2023 OSMAN HADI DESIGN LAB. ALL SYSTEMS OPERATIONAL.
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const cursorDot = document.querySelector('.cursor-dot');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            cursorDot.style.left = e.clientX + 'px';
+            cursorDot.style.top = e.clientY + 'px';
+        });
+        
+        // Interactive cursor effects
+        document.querySelectorAll('a, button, .hud-button').forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'scale(1.5)';
+                cursor.style.borderColor = '#39ff14';
+            });
+            
+            element.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'scale(1)';
+                cursor.style.borderColor = '#00f3ff';
+            });
+        });
+        
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+        
+        // Typing effect
+        const typingText = document.getElementById('typing-text');
+        const texts = [
+            "HIGH-END GRAPHICS DESIGNER",
+            "FUTURISTIC VISUAL CONCEPTS",
+            "IMMERSIVE EXPERIENCES",
+            "SCIENTIFIC-FICTION DESIGN"
+        ];
+        
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let isPaused = false;
+        
+        function typeWriter() {
+            const currentText = texts[textIndex];
+            
+            if (!isPaused && !isDeleting && charIndex === currentText.length) {
+                isPaused = true;
+                setTimeout(() => {
+                    isPaused = false;
+                    isDeleting = true;
+                    setTimeout(typeWriter, 100);
+                }, 1500);
+                return;
+            }
+            
+            if (!isPaused && isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(typeWriter, 500);
+                return;
+            }
+            
+            if (isDeleting) {
+                charIndex--;
+            } else {
+                charIndex++;
+            }
+            
+            typingText.textContent = currentText.substring(0, charIndex);
+            
+            setTimeout(typeWriter, isDeleting ? 50 : 100);
+        }
+        
+        // Start typing effect after page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(typeWriter, 1000);
+            
+            // Initialize GSAP animations
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Animate sections on scroll
+            gsap.utils.toArray('section').forEach(section => {
+                gsap.from(section, {
+                    opacity: 0,
+                    y: 50,
+                    duration: 1,
+                    scrollTrigger: {
+                        trigger: section,
+                        start: 'top 80%',
+                        toggleActions: 'play none none reverse'
+                    }
+                });
+            });
+            
+            // Animate project cards
+            gsap.utils.toArray('.project-card').forEach((card, i) => {
+                gsap.from(card, {
+                    opacity: 0,
+                    y: 30,
+                    duration: 0.8,
+                    delay: i * 0.1,
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 90%',
+                        toggleActions: 'play none none reverse'
+                    }
+                });
+            });
+            
+            // Pulse animation for HUD corners
+            const hudCorners = document.querySelectorAll('.hud-corner');
+            hudCorners.forEach(corner => {
+                gsap.to(corner, {
+                    boxShadow: '0 0 20px rgba(0, 243, 255, 0.8)',
+                    duration: 2,
+                    repeat: -1,
+                    yoyo: true
+                });
+            });
+        });
+        
+        // Form submission
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Simple form validation
+            const inputs = contactForm.querySelectorAll('input, textarea, select');
+            let isValid = true;
+            
+            inputs.forEach(input => {
+                if (input.value.trim() === '' && input.type !== 'submit') {
+                    isValid = false;
+                    input.classList.add('glow-secondary');
+                    
+                    // Remove error class after 2 seconds
+                    setTimeout(() => {
+                        input.classList.remove('glow-secondary');
+                    }, 2000);
+                }
+            });
+            
+            if (isValid) {
+                // Success animation
+                gsap.to(contactForm, {
+                    backgroundColor: 'rgba(57, 255, 20, 0.1)',
+                    duration: 0.5,
+                    yoyo: true,
+                    repeat: 1
+                });
+                
+                // Reset form
+                setTimeout(() => {
+                    contactForm.reset();
+                    
+                    // Show success message
+                    const successMsg = document.createElement('div');
+                    successMsg.className = 'glass p-4 rounded-md text-center mt-4';
+                    successMsg.innerHTML = '<div class="text-green-400 tech-font">TRANSMISSION SENT!</div><div class="text-gray-300">Message successfully transmitted. Awaiting response...</div>';
+                    
+                    contactForm.appendChild(successMsg);
+                    
+                    // Remove message after 5 seconds
+                    setTimeout(() => {
+                        successMsg.remove();
+                    }, 5000);
+                }, 1000);
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Random glitch effect on text elements
+        function triggerRandomGlitch() {
+            const glitchElements = document.querySelectorAll('.glitch, .tech-font');
+            const randomElement = glitchElements[Math.floor(Math.random() * glitchElements.length)];
+            
+            gsap.to(randomElement, {
+                x: Math.random() * 10 - 5,
+                y: Math.random() * 10 - 5,
+                color: Math.random() > 0.5 ? '#ff00ff' : '#00ffff',
+                duration: 0.05,
+                repeat: 5,
+                yoyo: true,
+                onComplete: () => {
+                    gsap.to(randomElement, {
+                        x: 0,
+                        y: 0,
+                        color: '#ffffff',
+                        duration: 0.1
+                    });
+                }
+            });
+        }
+        
+        // Trigger random glitch every 5-10 seconds
+        setInterval(triggerRandomGlitch, Math.random() * 5000 + 5000);
+    </script>
+</body>
+</html>
